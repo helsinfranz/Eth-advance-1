@@ -1,38 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Avax-Eth Assignment
+
+Going to use deposit(),withdraw(),totalSupply,balanceOftoken functions using local network subnet.
+
+## Description
+
+Contract for creating a seperate wallet/vault for every player and letting player do some things with it.
 
 ## Getting Started
 
-First, run the development server:
+## Initialize
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+1. To get started, first pick a name for your Subnet.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+``avalanche subnet create mySubnet``
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Select ``SubnetEVM``
+Select ``Use latest version``
+Select ``Low disk use / Low Throughput 1.5 mil gas/s (C-Chain's setting)``
+Select ``Airdrop 1 million tokens to the default address (do not use in production)``
+select ``No``
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+ The command prints ``Successfully created subnet configuration``
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+To deploy your Subnet, run
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+``avalanche subnet deploy mySubnet``
+ 
+ Next, select ``Local Network``
+ 
+Now you will get your configurations just put them in your metamask wallet add manual network.
 
-## Learn More
+and then execute every thing with that configuration of metamask in your remix.
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Executing program
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. You need to deploy the ERC20.sol first.
+2. Then, you need to deploy the Vault.sol contract after that but give it the address of already deployed contract in the above step.
+3. Now in the first contract you need to mint some tokens and approve them to be transfered to the valut contract by giving it both the addresses and the amount.
+4. Now, you can call the deposit and wothdraw functions of the main Vault contract and check them as stated in the contract.
