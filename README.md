@@ -1,41 +1,23 @@
-# Avax-Eth Assignment
+# Eth-Advance Assignment
 
-Going to use deposit(),withdraw(),totalSupply,balanceOftoken functions using local network subnet.
+In this project we are going to deploy the contract and then use it in the frontend using Ethers.js
 
 ## Description
 
-Contract for creating a seperate wallet/vault for every player and letting player do some things with it.
+TokenVesting.sol is the contract which needs to be deployed to any testnet of your choice and then update the contract abi and address in the frontend code, thats it.
 
 ## Getting Started
 
 ## Initialize
 
-1. To get started, first pick a name for your Subnet.
-
-``avalanche subnet create mySubnet``
-
-Select ``SubnetEVM``
-Select ``Use latest version``
-Select ``Low disk use / Low Throughput 1.5 mil gas/s (C-Chain's setting)``
-Select ``Airdrop 1 million tokens to the default address (do not use in production)``
-select ``No``
-
- The command prints ``Successfully created subnet configuration``
-
-To deploy your Subnet, run
-
-``avalanche subnet deploy mySubnet``
- 
- Next, select ``Local Network``
- 
-Now you will get your configurations just put them in your metamask wallet add manual network.
-
-and then execute every thing with that configuration of metamask in your remix.
-
+1. Run ``npm i``
+2. Go to remix or use hardhat and run the script provided to deploy it :-)
+3. Now change the abi in the artifact folder and change the address in the js files.
 
 ### Executing program
 
-1. You need to deploy the ERC20.sol first.
-2. Then, you need to deploy the Vault.sol contract after that but give it the address of already deployed contract in the above step.
-3. Now in the first contract you need to mint some tokens and approve them to be transfered to the valut contract by giving it both the addresses and the amount.
-4. Now, you can call the deposit and wothdraw functions of the main Vault contract and check them as stated in the contract.
+1. Run ``npm run dev``
+2. go to admin pages and use the applications as per the details and go in this order as it was in the question
+   ```org_register -> org_enlist -> org_token_allocate -> org_whitelist```
+3. After executing all the above steps you can go to the client page and use your client account in metamast (Their will be 2 accounts org and client account for this question).
+4. And you can withdraw the tokens from there, if you have selected the client to be True in whitelist.
