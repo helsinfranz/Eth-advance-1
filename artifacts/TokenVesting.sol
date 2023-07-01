@@ -2,21 +2,18 @@
 
 pragma solidity ^0.8.7;
 
-contract TokenVesting {
-    
+contract TokenVesting {  
     uint256 public id=0;
     uint256 public number_client=0 ;
 
-
-
-    mapping(address => mapping(address => uint256)) public level_of_access; // it is used to identify whether one is an admin or an client
-    mapping(address => mapping(address => uint256)) public Balance; // its the total amount of token one has 
-    mapping(address => mapping(address => uint256)) public TolallSupply; // its the total amount of token minted by the organization
+    mapping(address => mapping(address => uint256)) public level_of_access;
+    mapping(address => mapping(address => uint256)) public Balance;
+    mapping(address => mapping(address => uint256)) public TolallSupply; 
     mapping(address => mapping(address => uint256)) public unlock_time;
-    mapping(address => string) public org_name; // its maintaining a list of names associated with its organization account address
+    mapping(address => string) public org_name;
     mapping(address => string) public org_token_name;
     mapping(address => string) public org_token_abbre;
-    mapping(address => mapping(uint256 => address)) public client_address_list; // its maintaining a list of names associated with its client account address
+    mapping(address => mapping(uint256 => address)) public client_address_list;
     mapping(address => mapping(uint256 => string)) public client_name_list;
     mapping(address => mapping(address => uint256)) public client_id_list;
     mapping(address => mapping(address => string)) public whitelist_state;
@@ -28,9 +25,6 @@ contract TokenVesting {
     event show_org_details(address org,string orgname,string token_name,string token_abbre,uint256 bal,uint256 totall_token);
     event show_client_details(uint256 shakeholder,string client_name,uint256 client_bal,uint256 access_level);
 
-    // here the shakeholder is a uint. it defines the type of the shakeholder is the token holder 
-    // 1 for 
-
     function msgg()public view returns(address){
         return msg.sender;
     }
@@ -39,7 +33,6 @@ contract TokenVesting {
         return level_of_access[orga][client];
     }
 
-    // here i am going to quiquely give client an id to differentiate client between orgs
     function _holder_enlistment(address orga,address client, string memory client_name,uint256 access_level) public returns(bool) { 
         bool flag = false;
         address Owner = orga;
@@ -59,7 +52,6 @@ contract TokenVesting {
     }
 
     function _show_client_info(address organization,address client, uint256 client_id)public view returns(uint256,string memory, uint256,uint256) {
-
         return (level_of_access[organization][client], client_name_list[organization][client_id],Balance[organization][client],unlock_time[organization][client]);
     }
 
@@ -77,7 +69,7 @@ contract TokenVesting {
                 flag = true;
             }
         } else {
-            revert("Token allotment faild as balance mismatched");
+            revert("Token allotment failed as balance mismatched");
         }
         return flag= true;
     }
@@ -96,7 +88,7 @@ contract TokenVesting {
         if((previousBal+qty) == Balance[Owner][Owner]){
             flag = true;
         } else {
-            revert("minting faild");
+            revert("minting failed");
         }
         emit mint(org_name[Owner],org_token_name[Owner], org_token_abbre[Owner],Owner,qty);
         return flag;
@@ -110,7 +102,6 @@ contract TokenVesting {
     function _withdraw(address orga,address client,uint256 qty,uint256 time) public returns(bool){
         uint256 previousBal = Balance[orga][client];
         bool flag = false;
-
         if(time >= unlock_time[orga][client]){
             Balance[orga][client] -= qty;
                 if((previousBal-qty) == Balance[orga][client]){
@@ -121,19 +112,16 @@ contract TokenVesting {
                 emit withdraw(client,qty);
                 return flag;
         } else {
-            revert("You vesting Period is not over yet!");
-        }
-        
+            revert("Your vesting period is not over yet!");
+        }      
     }
 
     function whitelistingManagement(address ora,address client,string memory state) public returns (bool) {
-
         whitelist_state[ora][client] = state;
         return true;
     }
-    function get_client_whitelisting_state(address ora,address client) public view returns (string memory) {
 
+    function get_client_whitelisting_state(address ora,address client) public view returns (string memory) {
         return whitelist_state[ora][client];
     }
-
 }
